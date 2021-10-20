@@ -1,0 +1,6 @@
+language = Objective-C
+headers = headers/Keychain.h headers/KeychainQuery.h
+compilerOpts = -F/cinterop/keychain
+linkerOpts = -F/cinterop/keychain
+staticLibraries = libkeychainwrapper.a
+libraryPaths = cinterop/keychain
