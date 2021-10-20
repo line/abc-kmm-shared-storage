@@ -125,18 +125,6 @@ SharedStorage.Companion().save(value: true, forKey: "key::Boolean")
 SharedStorage.Companion().save(value: "String", forKey: "key::String")
 ```
 
-### To store secure value
-
-Android
-```kotlin
-SharedStorage.secureSave("SecureString", "key::SecureString")
-```
-
-iOS
-```swift
-SharedStorage.Companion().secureSave(value: "SecureString", forKey: "key::SecureString")
-```
-
 ### To get general value
 
 Android
