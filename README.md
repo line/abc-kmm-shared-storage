@@ -240,14 +240,3 @@ struct Secure {
     }
 }
 ```
-
-## Maven Publish
-### local
-```bash
-./gradlew publishToMavenLocal -Dmaven.local=true
-```
-
-### remote
-```bash
-./gradlew publish -Dmaven.username=${username} -Dmaven.password=${password}
-```
