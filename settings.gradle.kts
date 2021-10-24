@@ -15,5 +15,8 @@ pluginManagement {
 }
 
 rootProject.name = "abc-kmm-shared-storage"
-include(":shared-storage")
-include(":shared-storage-annotations")
+include(":kmm-shared-storage")
+include(":kmm-shared-storage-annotations")
+
+project(":kmm-shared-storage").projectDir = file("./shared-storage")
+project(":kmm-shared-storage-annotations").projectDir = file("./shared-storage-annotations")

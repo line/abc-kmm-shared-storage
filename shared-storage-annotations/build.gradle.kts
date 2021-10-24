@@ -5,6 +5,7 @@ val groupId: String by project
 
 plugins {
     id("maven-publish")
+    id("signing")
     kotlin("jvm")
 }
 
@@ -25,19 +26,25 @@ tasks {
     }
 }
 
-val isMavenLocal = System.getProperty("maven.local").toBooleanLenient() ?: false
-if (!isMavenLocal) {
-    publishing {
-        publications {
-            create<MavenPublication>("NaverRepo") {
-                artifactId = "shared-storage-annotations"
-                from(components["java"])
-                artifact(tasks["sourcesJar"])
-                pom {
-                    name.set("$groupId:$artifactId")
-                    description.set("Shared Storage Annotations for Kotlin")
-                }
+publishing {
+    publications {
+        create<MavenPublication>("kmmSharedStorageAnnotations") {
+            artifactId = "kmm-shared-storage-annotations"
+            from(components["java"])
+            artifact(tasks["sourcesJar"])
+            pom {
+                description.set("Shared Storage Annotations for Kotlin Multiplatform Mobile")
             }
         }
     }
+}
+
+signing {
+    val signingKey: String? by project
+    val signingPassword: String? by project
+
+    println("signingKey, signingPassword -> ${signingKey?.slice(0..9)}, ${signingPassword?.map { "*" }?.joinToString("")}")
+
+    useInMemoryPgpKeys(signingKey, signingPassword)
+    sign(publishing.publications["kmmSharedStorageAnnotations"])
 }

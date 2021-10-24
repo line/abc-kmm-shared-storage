@@ -1,9 +1,9 @@
-import org.jetbrains.kotlin.cli.common.toBooleanLenient
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
     id("com.android.library")
     id("maven-publish")
+    id("signing")
     kotlin("multiplatform")
 }
 
@@ -50,7 +50,6 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                implementation("com.google.android.material:material:1.2.1")
                 implementation("androidx.startup:startup-runtime:1.0.0")
                 implementation("androidx.work:work-runtime:2.4.0")
                 implementation("androidx.security:security-crypto:1.1.0-alpha01")
@@ -72,9 +71,6 @@ kotlin {
     }
 }
 
-val libVersion: String by project
-val libVersionCode: String by project
-
 android {
     val compileSdkVersion = rootProject.ext.get("compileSdkVersion") as Int
     val minSdkVersion = rootProject.ext.get("minSdkVersion") as Int
@@ -93,13 +89,20 @@ android {
     }
 }
 
-val isMavenLocal = System.getProperty("maven.local").toBooleanLenient() ?: false
-if (!isMavenLocal) {
-    publishing {
-        publications {
-            create<MavenPublication>("NaverRepo") {
-                artifactId = "shared-storage"
-            }
+publishing {
+    publications {
+        create<MavenPublication>("kmmSharedStorage") {
+            artifactId = "kmm-shared-storage"
         }
     }
+}
+
+signing {
+    val signingKey: String? by project
+    val signingPassword: String? by project
+
+    println("signingKey, signingPassword -> ${signingKey?.slice(0..9)}, ${signingPassword?.map { "*" }?.joinToString("")}")
+
+    useInMemoryPgpKeys(signingKey, signingPassword)
+    sign(publishing.publications["kmmSharedStorage"])
 }

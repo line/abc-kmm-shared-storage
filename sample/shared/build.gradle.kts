@@ -7,7 +7,7 @@ plugins {
 }
 
 val sharedStorageVersion: String by rootProject
-val sharedStorageLib = "com.linecorp.abc-kmm:shared-storage:$sharedStorageVersion"
+val sharedStorageLib = "com.linecorp.abc:kmm-shared-storage:$sharedStorageVersion"
 
 version = "1.0"
 
@@ -24,8 +24,8 @@ kotlin {
 
     cocoapods {
         ios.deploymentTarget = "10.0"
-        homepage = "https://git.linecorp.com/abc/shared-storage/sample/iosApp"
-        summary = "Sample for shared-storage-kmm"
+        homepage = "https://github.com/line/abc-kmm-shared-storage/sample/iosApp"
+        summary = "Sample for abc-kmm-shared-storage"
         podfile = project.file("../iosApp/Podfile")
     }
 

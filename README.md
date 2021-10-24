@@ -11,7 +11,7 @@ A local storage management library for Kotlin Multiplatform Mobile iOS and andro
 ## Features
 
 - iOS and Android local storage in one interface
-- Provides common storage (UserDefaults, SharedPreferences)
+- Provides general storage (UserDefaults, SharedPreferences)
 - Provides secure storage (Keychain, EncryptedPreferences)
 - Annotation is provided to create a custom class only by defining an interface
 - Common interface available on KMM Shared
@@ -29,37 +29,6 @@ A local storage management library for Kotlin Multiplatform Mobile iOS and andro
 
 Add below gradle settings into your KMP (Kotlin Multiplatform Project)
 
-#### build.gradle.kts in root
-
-```kotlin
-buildscript {
-    repositories {
-        gradlePluginPortal()
-        google()
-        mavenCentral()
-    }
-    dependencies {
-        classpath("com.android.tools.build:gradle:7.0.1")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21")
-    }
-}
-
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-        maven {
-            url = uri("http://repo.navercorp.com/maven-release/")
-            isAllowInsecureProtocol = true
-        }
-        maven {
-            url = uri("http://repo.navercorp.com/maven-snapshot/")
-            isAllowInsecureProtocol = true
-        }
-    }
-}
-```
-
 #### build.gradle.kts in shared
 ```kotlin
 plugins {
@@ -68,7 +37,7 @@ plugins {
 }
 
 val sharedStorageVersion = "1.0.1"
-val sharedStorage = "com.linecorp.abc-kmm:shared-storage-annotations:$sharedStorageVersion"
+val sharedStorage = "com.linecorp.abc:kmm-shared-storage:$sharedStorageVersion"
 
 kotlin {
     sourceSets {
@@ -190,8 +159,8 @@ val sharedStorageVersion = "1.0.1"
 
 dependencies {
     implementation(project(":shared"))
-    implementation("com.linecorp.abc-kmm:shared-storage-annotations:$sharedStorageVersion")
-    ksp("com.linecorp.abc-kmm:shared-storage-annotations:$sharedStorageVersion")
+    implementation("com.linecorp.abc.kmm-shared-storage-annotations:$sharedStorageVersion")
+    ksp("com.linecorp.abc:kmm-shared-storage-annotations:$sharedStorageVersion")
 }
 ```
 
