@@ -104,5 +104,5 @@ signing {
     println("signingKey, signingPassword -> ${signingKey?.slice(0..9)}, ${signingPassword?.map { "*" }?.joinToString("")}")
 
     useInMemoryPgpKeys(signingKey, signingPassword)
-    sign(publishing.publications["kmmSharedStorage"])
+    sign(publishing.publications)
 }

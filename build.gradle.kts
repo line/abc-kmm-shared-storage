@@ -1,3 +1,11 @@
+import org.jetbrains.kotlin.cli.common.toBooleanLenient
+
+val isSnapshotUpload = System.getProperty("snapshot").toBooleanLenient() ?: false
+val libVersion = "1.0.1"
+val gitName = "abc-${project.name}"
+
+group = "com.linecorp.abc"
+version = if (isSnapshotUpload) "$libVersion-SNAPSHOT" else libVersion
 
 buildscript {
     repositories {
@@ -26,9 +34,6 @@ allprojects {
     }
 }
 
-group = "com.linecorp.abc"
-version = "1.0.1"
-
 subprojects {
     group = rootProject.group
     version = rootProject.version
@@ -39,7 +44,6 @@ subprojects {
     }
 
     pluginManager.withPlugin("maven-publish") {
-        val isSnapshotUpload = false
         val publishExtension = extensions.getByType<PublishingExtension>()
         publishExtension.repositories {
             maven {
@@ -67,12 +71,12 @@ subprojects {
             }
 
             groupId = rootProject.group.toString()
-            version = if (isSnapshotUpload) "${rootProject.version}-SNAPSHOT" else rootProject.version.toString()
+            version = rootProject.version.toString()
 
             pom {
                 name.set(artifactId)
                 description.set("A local storage management library for Kotlin Multiplatform Mobile iOS and android")
-                url.set("https://github.com/line/${rootProject.name}")
+                url.set("https://github.com/line/$gitName")
 
                 licenses {
                     license {
@@ -93,9 +97,9 @@ subprojects {
                     }
                 }
                 scm {
-                    connection.set("scm:git@github.com:line/${rootProject.name}.git")
-                    developerConnection.set("scm:git:ssh://github.com:line/${rootProject.name}.git")
-                    url.set("http://github.com/line/${rootProject.name}")
+                    connection.set("scm:git@github.com:line/$gitName.git")
+                    developerConnection.set("scm:git:ssh://github.com:line/$gitName.git")
+                    url.set("http://github.com/line/$gitName")
                 }
             }
         }

@@ -14,16 +14,12 @@ dependencies {
     implementation("com.google.devtools.ksp:symbol-processing-api:$kspVersion")
 }
 
-tasks {
-    val sourcesJar by creating(Jar::class) {
-        archiveClassifier.set("sources")
-        from(sourceSets.main.get().allSource)
-    }
-
-    artifacts {
-        archives(sourcesJar)
-        archives(jar)
-    }
+val sourcesJar by tasks.registering(Jar::class) {
+    archiveClassifier.set("sources")
+    from(sourceSets.main.get().allSource)
+}
+val javadocJar by tasks.registering(Jar::class) {
+    archiveClassifier.set("javadoc")
 }
 
 publishing {
@@ -31,10 +27,11 @@ publishing {
         create<MavenPublication>("kmmSharedStorageAnnotations") {
             artifactId = "kmm-shared-storage-annotations"
             from(components["java"])
-            artifact(tasks["sourcesJar"])
             pom {
                 description.set("Shared Storage Annotations for Kotlin Multiplatform Mobile")
             }
+            artifact(sourcesJar.get())
+            artifact(javadocJar.get())
         }
     }
 }
@@ -46,5 +43,5 @@ signing {
     println("signingKey, signingPassword -> ${signingKey?.slice(0..9)}, ${signingPassword?.map { "*" }?.joinToString("")}")
 
     useInMemoryPgpKeys(signingKey, signingPassword)
-    sign(publishing.publications["kmmSharedStorageAnnotations"])
+    sign(publishing.publications)
 }
