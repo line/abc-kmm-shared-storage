@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.cli.common.toBooleanLenient
 
 val isSnapshotUpload = System.getProperty("snapshot").toBooleanLenient() ?: false
-val libVersion = "1.0.1"
+val libVersion = "1.0.2"
 val gitName = "abc-${project.name}"
 
 group = "com.linecorp.abc"

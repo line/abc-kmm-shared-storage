@@ -70,8 +70,9 @@ class Processor(
                 val defaultValue = when (it.type.element.toString()) {
                     "String" -> "\"\""
                     "Boolean" -> "false"
+                    "Int" -> "0"
+                    "Long" -> "0L"
                     "Float"-> "0.0f"
-                    "Double" -> "0.0"
                     else -> "0"
                 }
 

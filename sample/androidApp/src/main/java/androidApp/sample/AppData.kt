@@ -8,7 +8,6 @@ interface AppData {
     var someInt: Int
     var someFloat: Float
     val someLong: Long
-    val someDouble: Double
     val someBoolean: Boolean
     val someString: String
     @Secure val someSecureString: String

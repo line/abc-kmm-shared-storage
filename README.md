@@ -36,7 +36,7 @@ plugins {
     kotlin("multiplatform")
 }
 
-val sharedStorageVersion = "1.0.1"
+val sharedStorageVersion = "1.0.2"
 val sharedStorage = "com.linecorp.abc:kmm-shared-storage:$sharedStorageVersion"
 
 kotlin {
@@ -155,7 +155,7 @@ plugins {
 
 #### build.gradle.kts in androidApp
 ```kotlin
-val sharedStorageVersion = "1.0.1"
+val sharedStorageVersion = "1.0.2"
 
 dependencies {
     implementation(project(":shared"))
@@ -176,7 +176,6 @@ interface AppData {
     var someInt: Int
     var someFloat: Float
     val someLong: Long
-    val someDouble: Double
     val someBoolean: Boolean
     val someString: String
 
