@@ -16,62 +16,6 @@ A local storage management library for Kotlin Multiplatform Mobile iOS and andro
 - Annotation is provided to create a custom class only by defining an interface
 - Common interface available on KMM Shared
 
-## Requirements
-
-- iOS 
-    - Deployment target 10.0 or higher
-- Android
-    - minSdkVersion 21
-
-## Installation
-
-### Default Gradle Settings
-
-Add below gradle settings into your KMP (Kotlin Multiplatform Project)
-
-#### build.gradle.kts in shared
-```kotlin
-plugins {
-    id("com.android.library")
-    kotlin("multiplatform")
-}
-
-val sharedStorageVersion = "1.0.2"
-val sharedStorage = "com.linecorp.abc:kmm-shared-storage:$sharedStorageVersion"
-
-kotlin {
-    sourceSets {
-        ios {
-            binaries
-                .filterIsInstance<Framework>()
-                .forEach {
-                    it.transitiveExport = true
-                    it.export(sharedStorage)
-                }
-        }
-        android()
-
-        val commonMain by getting {
-            dependencies {
-                implementation(sharedStorage)
-            }
-        }
-        val androidMain by getting {
-            dependencies {
-                implementation(sharedStorage)
-                api(sharedStorage)
-            }
-        }
-        val iosMain by getting {
-            dependencies {
-                implementation(sharedStorage)
-                api(sharedStorage)
-            }
-        }
-    }
-}
-```
-
 ## Usage
 
 ### To store general value
@@ -239,3 +183,58 @@ struct Secure {
     }
 }
 ```
+
+## Installation
+
+### Default Gradle Settings
+
+Add below gradle settings into your KMP (Kotlin Multiplatform Project)
+
+#### build.gradle.kts in shared
+```kotlin
+plugins {
+    id("com.android.library")
+    kotlin("multiplatform")
+}
+
+val sharedStorage = "com.linecorp.abc:kmm-shared-storage:1.0.2"
+
+kotlin {
+    sourceSets {
+        ios {
+            binaries
+                .filterIsInstance<Framework>()
+                .forEach {
+                    it.transitiveExport = true
+                    it.export(sharedStorage)
+                }
+        }
+        android()
+
+        val commonMain by getting {
+            dependencies {
+                implementation(sharedStorage)
+            }
+        }
+        val androidMain by getting {
+            dependencies {
+                implementation(sharedStorage)
+                api(sharedStorage)
+            }
+        }
+        val iosMain by getting {
+            dependencies {
+                implementation(sharedStorage)
+                api(sharedStorage)
+            }
+        }
+    }
+}
+```
+
+## Requirements
+
+- iOS 
+    - Deployment target 10.0 or higher
+- Android
+    - minSdkVersion 21
