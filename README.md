@@ -173,11 +173,11 @@ import com.linecorp.abc.sharedstorage.annotations.SharedStorage
 
 @SharedStorage
 interface AppData {
+    var someBoolean: Boolean
     var someInt: Int
     var someFloat: Float
-    val someLong: Long
-    val someBoolean: Boolean
-    val someString: String
+    var someLong: Long
+    var someString: String
 
     @Secure val someSecureString: String
 }
@@ -185,10 +185,10 @@ interface AppData {
 
 #### Using for your android project
 ```kotlin
+SharedAppData.someBoolean = true
 SharedAppData.someInt = 501
 SharedAppData.someFloat = 501.5f
 SharedAppData.someLong = 500500L
-SharedAppData.someBoolean = true
 SharedAppData.someString = "I'm Some String"
 SharedAppData.someSecureString = "I'm Encrypted String"
 ```
@@ -198,6 +198,9 @@ SharedAppData.someSecureString = "I'm Encrypted String"
 ```swift
 struct AppData {
 
+    @General(key: "SomeBool", default: false)
+    static var someBool: Bool
+
     @General(key: "SomeInt", default: 0)
     static var someInt: Int
 
@@ -206,9 +209,6 @@ struct AppData {
 
     @General(key: "SomeDouble", default: 0)
     static var someDouble: Double
-
-    @General(key: "SomeBool", default: false)
-    static var someBool: Bool
 
     @General(key: "SomeString", default: "")
     static var someString: String
